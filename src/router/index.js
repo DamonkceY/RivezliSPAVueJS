@@ -8,34 +8,19 @@ import AdminHome from "../components/Administration/Home.vue";
 import manageDepartments from "../components/Administration/Manage/ManageDepartments.vue";
 import manageGroups from "../components/Administration/Manage/ManageGroups.vue";
 import manageProfessors from "../components/Administration/Manage/ManageProfessors.vue";
-import PostMother from "../components/Layout/PostMother.vue"
+import PostMother from "../components/Layout/PostMother.vue";
 import Profile from "../components/Layout/Profile.vue";
-import OthersProfile from "../components/Layout/OthersProfile.vue"
-
+import OthersProfile from "../components/Layout/OthersProfile.vue";
+import listDep from "../components/Administration/Manage/manDep/list";
+import listG from "../components/Administration/Manage/manG/list";
+import listP from "../components/Administration/Manage/manP/list";
+import manageCourse from "../components/Prof/manageCourse";
+import groups from "../components/Prof/groups"
+import course from "../components/Prof/course"
+import courses from "../components/Layout/courses"
+import coursesId from "../components/Layout/courseId"
+import { guest, auth, admin } from "./middlewares";
 Vue.use(VueRouter);
-
-const guest = (to, from, next) => {
-  if (!localStorage.getItem("access_token")) {
-    return next();
-  } else {
-    return next("/home");
-  }
-};
-
-const auth = (to, from, next) => {
-  if (localStorage.getItem("access_token")) {
-    return next();
-  } else {
-    return next("/login");
-  }
-};
-const admin = (to, from, next) => {
-  if (localStorage.getItem("role") == 2) {
-    return next();
-  } else {
-    return next("/home");
-  }
-};
 
 const routes = [
   // {
@@ -46,53 +31,91 @@ const routes = [
   //   }
 
   // },
-
+  {
+    path: "/",
+    redirect: "/login"
+  },
   {
     path: "/login",
     name: "Login",
     beforeEnter: guest,
     components: {
-      HomeView: Login,
-    },
+      HomeView: Login
+    }
   },
   {
     path: "/register",
     name: "Register",
     beforeEnter: guest,
     components: {
-      HomeView: Register,
-    },
+      HomeView: Register
+    }
   },
   {
     path: "/home",
     name: "Home",
     beforeEnter: auth,
     components: {
-      HomeView: Home,
+      HomeView: Home
     },
     children: [
+      {
+        path: "/manageCourse",
+        beforeEnter: auth,
+        components: {
+          HomeRouter: manageCourse
+        }
+      },
+      {
+        path: "/group/:id",
+        // beforeEnter: auth,
+        components: {
+          HomeRouter: groups
+        }
+      },
+      {
+        path: "/course/:id",
+        // beforeEnter: auth,
+        components: {
+          HomeRouter: course
+        }
+      },
+      {
+        path: "/courses",
+        // beforeEnter: auth,
+        components: {
+          HomeRouter: courses
+        }
+      },
+      {
+        path: "/courses/:id",
+        // beforeEnter: auth,
+        components: {
+          HomeRouter: coursesId
+        }
+      },
       {
         path: "/profile",
         beforeEnter: auth,
         components: {
-          HomeRouter: Profile,
-        },
+          HomeRouter: Profile
+        }
       },
       {
         path: "/userProfile/:id",
         beforeEnter: auth,
         components: {
-          HomeRouter: OthersProfile,
-        },
+          HomeRouter: OthersProfile
+        }
       },
       {
         path: "/",
         beforeEnter: auth,
         components: {
-          HomeRouter: PostMother,
-        },
-      },
-    ],
+          HomeRouter: PostMother
+        }
+      }
+    ]
   },
 
   {
@@ -100,40 +123,64 @@ const routes = [
     name: "adminHome",
     beforeEnter: admin,
     components: {
-      HomeView: AdminHome,
+      HomeView: AdminHome
     },
     children: [
+      // {
+      //   path: "/adminHome",
+      //   components: {
+      //     manageView: Home,
+      //   },
+      // },
       {
-        path: "/",
+        path: "/adminHome",
         components: {
-          manageView: Home,
+          manageView: manageDepartments
         },
-      },
-      {
-        path: "/manageDepartments",
-        components: {
-          manageView: manageDepartments,
-        },
+        children: [
+          {
+            path: "/",
+            components: {
+              manDep: listDep
+            }
+          }
+        ]
       },
       {
         path: "/manageGroups",
         components: {
-          manageView: manageGroups,
+          manageView: manageGroups
         },
+        children: [
+          {
+            path: "/",
+            components: {
+              manG: listG
+            }
+          }
+        ]
       },
       {
         path: "/manageProfessors",
         components: {
-          manageView: manageProfessors,
+          manageView: manageProfessors
         },
-      },
-    ],
-  },
+        children: [
+          {
+            path: "/",
+            components: {
+              manP: listP
+            }
+          }
+        ]
+      }
+    ]
+  }
 ];
 
 const router = new VueRouter({
   mode: "history",
-  routes,
+  routes
 });
 
 export default router;

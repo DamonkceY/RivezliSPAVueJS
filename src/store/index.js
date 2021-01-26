@@ -5,6 +5,7 @@ import auth from "./modules/Auth";
 import admin from "./modules/Admin";
 import post from "./modules/Post";
 import chat from "./modules/Chat";
+import prof from "./modules/Prof"
 
 Vue.use(Vuex);
 
@@ -32,6 +33,7 @@ export default new Vuex.Store({
     auth,
     admin,
     post,
-    chat
+    chat,
+    prof
   },
 });

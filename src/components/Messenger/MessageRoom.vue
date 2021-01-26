@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div class="row" v-if="this.group">
     <div class="col-md-12">
       <li class="list-group-item active">MessageBox {{ this.group.name }}</li>
       <ul class="list-group" v-chat-scroll>
@@ -46,7 +46,7 @@ export default {
 
     window.Echo = new Echo({
       broadcaster: "pusher",
-      key: "6450ae6a57e02169054f",
+      key: "14b8ea1a2132fb92bdb0",
       cluster: "eu",
       forceTLS: true,
     });

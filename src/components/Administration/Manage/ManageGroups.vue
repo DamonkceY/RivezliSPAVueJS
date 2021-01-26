@@ -1,6 +1,6 @@
 <template>
   <div>
-      Groups
+      <router-view name="manG"></router-view>
   </div>
 </template>
 

@@ -1,15 +1,11 @@
 <template>
   <div>
-      Dep
+    <router-view name="manDep"></router-view>
   </div>
 </template>
 
 <script>
-export default {
-
-}
+export default {}
 </script>
 
-<style>
-
-</style>
+<style></style>

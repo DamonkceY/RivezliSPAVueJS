@@ -14,6 +14,34 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav ml-auto" v-if="userData">
+        <li class="nav-item" v-if="userData.role == 2">
+          <router-link
+            class="nav-link"
+            to="/adminHome"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
+            >Admin</router-link
+          >
+        </li>
+        <li class="nav-item" v-if="userData.role == 1">
+          <router-link
+            class="nav-link"
+            to="/managecourse"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
+            >Course</router-link
+          >
+        </li>
+        <li class="nav-item">
+          <router-link
+            v-if="userData.role == 0"
+            class="nav-link"
+            to="/courses"
+            data-toggle="collapse"
+            data-target=".navbar-collapse.show"
+            >My Courses</router-link
+          >
+        </li>
         <li class="nav-item">
           <router-link
             class="nav-link"

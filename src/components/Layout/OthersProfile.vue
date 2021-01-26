@@ -1,6 +1,6 @@
 <template>
   <div v-if="this.userProfile">
-      <!-- {{this.userProfile}} -->
+    <!-- {{this.userProfile}} -->
     <div>
       <div class="fb-profile">
         <img
@@ -19,6 +19,9 @@
       </div>
     </div>
 
+    <br /><br /><br /><br />
+    <br /><br /><br /><br /><br /><br /><br /><br />
+
     <div class="row">
       <div class="col-md-12">
         <div v-if="this.userProfile.posts">
@@ -34,13 +37,13 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from "vuex";
-import Post from "./Post.vue";
+import { mapActions, mapGetters } from "vuex"
+import Post from "./Post.vue"
 export default {
   data: function() {
     return {
       file: null,
-    };
+    }
   },
   components: {
     Post,
@@ -51,13 +54,13 @@ export default {
   },
   mounted() {
     //   console.log()
-    this.getUserProfile(this.$route.params.id);
+    this.getUserProfile(this.$route.params.id)
     // console.log(this.userProfile)
   },
   methods: {
     ...mapActions("auth", ["getUserProfile"]),
   },
-};
+}
 </script>
 
 <style scoped></style>

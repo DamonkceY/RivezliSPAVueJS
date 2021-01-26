@@ -42,7 +42,7 @@
             />
           </div>
           <div v-if="this.item.file">
-            <a :href="'http://127.0.0.1:8000/storage/postfiles/' + this.item.file" target="_blank">Download</a>
+            <a :href="'http://127.0.0.1:8000/storage/postfiles/' + this.item.file" target="_blank"> {{item.file}} </a>
           </div>
           
           <div v-if="this.item.url">
@@ -104,7 +104,8 @@
 
 <script>
 import { mapActions } from "vuex";
-import LinkPrevue from 'link-prevue'
+import LinkPrevue from '@ashwamegh/vue-link-preview'
+// import LinkPrevue from "link-prevue"
 import Echo from "laravel-echo";
 export default {
   props: ["item"],
@@ -130,14 +131,15 @@ export default {
 
     window.Echo = new Echo({
       broadcaster: "pusher",
-      key: "6450ae6a57e02169054f",
+      key: "14b8ea1a2132fb92bdb0",
       cluster: "eu",
       forceTLS: true,
     });
 
     window.Echo.channel("CommentChannel").listen("CommentEvent", (e) => {
-      // this.getPosts.unshift(e.post);
-      this.item.comments.push(e.comment)
+      if(this.item.id == e.comment.post.id){
+        this.item.comments.push(e.comment)
+      }
       
     });
   },

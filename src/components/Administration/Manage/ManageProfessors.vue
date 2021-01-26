@@ -1,6 +1,6 @@
 <template>
   <div>
-      Prof
+      <router-view name="manP"></router-view>
   </div>
 </template>
 

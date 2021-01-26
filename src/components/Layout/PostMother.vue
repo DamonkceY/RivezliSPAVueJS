@@ -43,20 +43,18 @@ export default {
 
     window.Echo = new Echo({
       broadcaster: "pusher",
-      key: "6450ae6a57e02169054f",
+      key: "14b8ea1a2132fb92bdb0",
       cluster: "eu",
       forceTLS: true,
     });
 
     window.Echo.channel("PostChannel").listen("PostEvent", (e) => {
       this.getPosts.unshift(e.post);
-      // console.log(e.post);
       
     });
   },
   methods: {
     ...mapActions("post", ["getAllPosts"]),
-    // ...mapActions("auth", ["getUserData"]),
   },
 };
 </script>
